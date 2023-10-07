@@ -81,9 +81,6 @@ const Chat = () => {
         <button type="submit" className="mainButton" disabled={loading} onClick={() => setSubmitType('text')}>
           TEXT
         </button>
-        <button type="submit" className="secondaryButton" disabled={loading} onClick={() => setSubmitType('image')}>
-          IMAGE
-        </button>
       </form>
     </>
   );
