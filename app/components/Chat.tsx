@@ -77,7 +77,7 @@ const Chat = () => {
     <>
       {renderResponse()}
       <form onSubmit={onSubmit} className="mainForm">
-        <input name="input-field" placeholder="Say anything" onChange={handleInputChange} value={input} />
+        <input name="input-field" placeholder="Ask anything" onChange={handleInputChange} value={input} />
         <button type="submit" className="mainButton" disabled={loading} onClick={() => setSubmitType('text')}>
           TEXT
         </button>

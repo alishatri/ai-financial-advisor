@@ -134,8 +134,10 @@ button:disabled:hover {
   margin: auto;
   text-align: left;
   padding: 10px;
-  border: 1px solid white;
+  border: 2px solid ;
+  border-image: linear-gradient(to right,  #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82) 1 ;
   border-radius: 20px;
+  -webkit-border-radius: 5px;
   overflow: auto;
 }
 
