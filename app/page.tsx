@@ -12,6 +12,7 @@ export default function Home() {
     setShowChat(true);
     setShowButton(false)
   };
+  
   return (
     <main className="App">
       <div className="container">

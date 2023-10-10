@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { useChat } from 'ai/react';
-import Image from 'next/image';
+import { useState } from "react";
+import { useChat } from "ai/react";
+import Image from "next/image";
 
 const Chat = () => {
-  const [submitType, setSubmitType] = useState<'text'|'image'>("text");
+  const [submitType, setSubmitType] = useState<"text" | "image">("text");
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/openai',
+    api: "/api/openai",
   });
 
   const getImageData = async () => {
     try {
-      const response = await fetch('/api/dall-e', {
-        method: 'POST',
+      const response = await fetch("/api/dall-e", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: input })
+        body: JSON.stringify({ prompt: input }),
       });
       const { imageUrl } = await response.json();
       setImageUrl(imageUrl);
@@ -32,8 +32,8 @@ const Chat = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    if (submitType === 'text') {
+
+    if (submitType === "text") {
       handleSubmit(event);
     } else {
       setLoading(true);
@@ -43,47 +43,76 @@ const Chat = () => {
   };
 
   const userColors = {
-    user: '#00c0ff',
-    assistant: '#e02aff',
-    function: '#fff',
-    system: '#fff',
-  }
+    user: "#00c0ff",
+    assistant: "#e02aff",
+    function: "#fff",
+    system: "#fff",
+  };
 
   const renderResponse = () => {
-    if (submitType === 'text') {
+    if (submitType === "text") {
       return (
         <div className="response">
           {messages.length > 0
-          ? messages.map(m => (
-              <div key={m.id} className="chat-line">
-                <span style={{color: userColors[m.role]}}>{m.role === 'user' ? 'User: ' : '⚡️Financial Advisor: '}</span>
-                {m.content}
-              </div>
-            ))
-          : error}
+            ? messages.map((m) => (
+                <div key={m.id} className="chat-line">
+                  <span style={{ color: userColors[m.role] }}>
+                    {m.role === "user" ? (
+                      "User: "
+                    ) : (
+                      <Image
+                        src="/chat-bot.png"
+                        alt="chat-bot"
+                        width="30"
+                        height="10"
+                      />
+                    )}
+                  </span>
+                  {m.content}
+                </div>
+              ))
+            : error}
         </div>
       );
     } else {
       return (
         <div className="response">
           {loading && <div className="loading-spinner"></div>}
-          {imageUrl && <Image src={imageUrl} className="image-box" alt="Generated image" width="400" height="400" />}
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              className="image-box"
+              alt="Generated image"
+              width="400"
+              height="400"
+            />
+          )}
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <>
       {renderResponse()}
       <form onSubmit={onSubmit} className="mainForm">
-        <input name="input-field" placeholder="Ask anything" onChange={handleInputChange} value={input} />
-        <button type="submit" className="mainButton" disabled={loading} onClick={() => setSubmitType('text')}>
+        <input
+          name="input-field"
+          placeholder="Ask anything"
+          onChange={handleInputChange}
+          value={input}
+        />
+        <button
+          type="submit"
+          className="mainButton"
+          disabled={loading}
+          onClick={() => setSubmitType("text")}
+        >
           TEXT
         </button>
       </form>
     </>
   );
-}
+};
 
 export default Chat;
