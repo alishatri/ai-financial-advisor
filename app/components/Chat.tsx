@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useChat } from "ai/react";
 import Image from "next/image";
+import { FaRobot } from "react-icons/fa";
 
 const Chat = () => {
   const [submitType, setSubmitType] = useState<"text" | "image">("text");
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/openai",
   });
@@ -44,7 +44,7 @@ const Chat = () => {
 
   const userColors = {
     user: "#00c0ff",
-    assistant: "#e02aff",
+    assistant: "#ffe62a",
     function: "#fff",
     system: "#fff",
   };
@@ -57,17 +57,10 @@ const Chat = () => {
             ? messages.map((m) => (
                 <div key={m.id} className="chat-line">
                   <span style={{ color: userColors[m.role] }}>
-                    {m.role === "user" ? (
-                      "User: "
-                    ) : (
-                      <Image
-                        src="/chat-bot.png"
-                        alt="chat-bot"
-                        width="30"
-                        height="10"
-                      />
-                    )}
+                    {m.role === "user" ? "User: " : <FaRobot style={{fontSize:'30px'}} /> }
+                    &nbsp;
                   </span>
+                  &nbsp;
                   {m.content}
                 </div>
               ))
@@ -108,7 +101,7 @@ const Chat = () => {
           disabled={loading}
           onClick={() => setSubmitType("text")}
         >
-          TEXT
+          ASK
         </button>
       </form>
     </>

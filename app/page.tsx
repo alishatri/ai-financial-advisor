@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Chat from "./components/Chat";
 import { useState } from "react";
+import { useChat } from "ai/react";
 
 export default function Home() {
   const [showChat, setShowChat] = useState(false);
@@ -17,8 +18,8 @@ export default function Home() {
     <main className="App">
       <div className="container">
         <div className="logoBox">
-          <Image src="/logo.png" alt="logo" width="400" height="300" />
-          <Chat/>
+          <Image src='/logo.png' alt="logo" width={300} height={250} />
+          <Chat />
         </div>
       </div>
     </main>
