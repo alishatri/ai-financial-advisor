@@ -17,6 +17,7 @@ export default function Home() {
       <main className="App">
         <div className="container">
           <div className="logoBox">
+          <h1>WallStreetBetsGPT</h1>
             <Image src="/logo.png" alt="logo" width={300} height={250} />
             <h2 style={{ padding: "10px" }}>
               This is boot based of r/wallstreetbets knowledge

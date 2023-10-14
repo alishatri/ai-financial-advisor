@@ -1,0 +1,161 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[3]!./app/globals.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  text-align: center;
+  background-color: #232534;
+  height: 100vh;
+  color: white;
+  display: flex;
+  margin: 1;
+}
+
+.container {
+  width: 100%;
+  max-width: 920px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoBox {
+  padding-right: 20px;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.primaryColor {
+  color: #000000;
+}
+
+.secondaryColor {
+  color: rgb(255, 255, 255);
+}
+
+.mainForm {
+  margin: 10px auto;
+}
+
+.mainForm input {
+  width: 100%;
+  max-width: 470px;
+  padding: 15px 20px;
+  border-radius: 100px;
+  border: 1px solid white;
+  outline: none;
+}
+
+.mainButton {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: 2px solid #ffffff;
+  outline: none;
+  background-color: #f7f7f7;
+  color: rgb(0, 0, 0);
+  font-weight: 900;
+  margin-left: 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.mainButton:hover {
+  background-color: #bbbbbb;
+}
+
+.secondaryButton {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: 2px solid #ffffff;
+  outline: none;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+  margin-left: 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.secondaryButton:hover {
+  background-color: #bbbbbb;
+}
+
+button:disabled,
+button:disabled:hover {
+  background-color: #b7aeb9;
+  border-color: #b7aeb9;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.loading-spinner {
+  display: inline-block;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  border-top-color: #000000;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.response {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  max-width: 700px;
+  margin: auto;
+  text-align: left;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 20px;
+  -webkit-border-radius: 5px;
+  overflow: auto;
+}
+
+.image-box {
+  margin: auto;
+}
+
+.chat-line {
+  margin: 10px 0;
+  white-space: pre-wrap;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+@media screen and (max-width: 600px) {
+  .mainForm input {
+    width: auto;
+  }
+}
+
