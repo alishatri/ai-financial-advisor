@@ -1,0 +1,4 @@
+{
+  "/api/openai/route": "app/api/openai/route.js",
+  "/page": "app/page.js"
+}

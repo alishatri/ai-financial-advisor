@@ -1,109 +1,84 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChat } from "ai/react";
-import Image from "next/image";
-import { FaRobot } from "react-icons/fa";
+import ChatBox from "react-chat-plugin";
+
+type ChatMessage = {
+  author: {
+    username: string;
+    id: number;
+    avatarUrl: string;
+  };
+  text: string;
+  type: string;
+  timestamp: number;
+};
+
+const userAuthor = {
+  username: "User",
+  id: 1,
+  avatarUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+};
+
+const aiAuthor = {
+  username: "AI",
+  id: 2,
+  avatarUrl:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxG04HIgwI_xov-4yMXrMZjR9Iw3k3VdYDww&usqp=CAU",
+};
 
 const Chat = () => {
-  const [submitType, setSubmitType] = useState<"text" | "image">("text");
-  const [imageUrl, setImageUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const initialMessage = {
+    author: aiAuthor,
+    text: "Hey, how can I help you?",
+    type: "text",
+    timestamp: +new Date(),
+  };
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    initialMessage,
+  ]);
+  const { append, messages } = useChat({
     api: "/api/openai",
   });
 
-  const getImageData = async () => {
-    try {
-      const response = await fetch("/api/dall-e", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: input }),
-      });
-      const { imageUrl } = await response.json();
-      setImageUrl(imageUrl);
-      setError("");
-    } catch (e) {
-      setError(`An error occurred calling the API: ${e}`);
-    }
-    setLoading(false);
-  };
+  useEffect(() => {
+    if (messages.length < 1) return;
+    const authors = {
+      user: userAuthor,
+      system: aiAuthor,
+      function: aiAuthor,
+      assistant: aiAuthor,
+    };
+    const chatMessagesArr = messages?.map((message) => {
+      return {
+        author: authors[message.role],
+        text: message?.content,
+        type: "text",
+        timestamp: +new Date(),
+      };
+    });
+    setChatMessages([initialMessage, ...chatMessagesArr]);
+  }, [messages]);
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (submitType === "text") {
-      handleSubmit(event);
-    } else {
-      setLoading(true);
-      setImageUrl("");
-      getImageData().then();
-    }
-  };
-
-  const userColors = {
-    user: "#00c0ff",
-    assistant: "#ffe62a",
-    function: "#fff",
-    system: "#fff",
-  };
-
-  const renderResponse = () => {
-    if (submitType === "text") {
-      return (
-        <div className="response">
-          {messages.length > 0
-            ? messages.map((m) => (
-                <div key={m.id} className="chat-line">
-                  <span style={{ color: userColors[m.role] }}>
-                    {m.role === "user" ? "User: " : <FaRobot style={{fontSize:'30px'}} /> }
-                    &nbsp;
-                  </span>
-                  &nbsp;
-                  {m.content}
-                </div>
-              ))
-            : error}
-        </div>
-      );
-    } else {
-      return (
-        <div className="response">
-          {loading && <div className="loading-spinner"></div>}
-          {imageUrl && (
-            <Image
-              src={imageUrl}
-              className="image-box"
-              alt="Generated image"
-              width="400"
-              height="400"
-            />
-          )}
-        </div>
-      );
-    }
+  const handleOnSendMessage = (message: string) => {
+    append({
+      content: message,
+      role: "user",
+    });
   };
 
   return (
     <>
-      {renderResponse()}
-      <form onSubmit={onSubmit} className="mainForm">
-        <input
-          name="input-field"
-          placeholder="Ask anything"
-          onChange={handleInputChange}
-          value={input}
-        />
-        <button
-          type="submit"
-          className="mainButton"
-          disabled={loading}
-          onClick={() => setSubmitType("text")}
-        >
-          ASK
-        </button>
-      </form>
+      <ChatBox
+        style={{
+          margin: "auto",
+          whiteSpace: "pre-wrap",
+        }}
+        messages={chatMessages}
+        userId={1}
+        onSendMessage={handleOnSendMessage}
+        width={"550px"}
+        height={"500px"}
+      />
     </>
   );
 };

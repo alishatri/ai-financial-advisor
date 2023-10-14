@@ -15,13 +15,8 @@ body {
 
 .App {
   text-align: center;
-  background: rgb(5, 112, 189);
-  background: linear-gradient(
-    90deg,
-    rgba(5, 112, 189, 1) 31%,
-    rgba(0, 212, 255, 1) 91%
-  );
-  height: 115vh;
+  background-color: #232534;
+  height: 100vh;
   color: white;
   display: flex;
   margin: 1;
@@ -31,6 +26,9 @@ body {
   width: 100%;
   max-width: 920px;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logoBox {
@@ -151,6 +149,7 @@ button:disabled:hover {
 
 .chat-line {
   margin: 10px 0;
+  white-space: pre-wrap;
 }
 
 .bold {
