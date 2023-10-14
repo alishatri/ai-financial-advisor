@@ -1,0 +1,5 @@
+{
+  "/api/openai/route": "/api/openai",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/"
+}
